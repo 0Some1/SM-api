@@ -3,11 +3,11 @@ SHELL := /bin/bash
 
 .EXPORT_ALL_VARIABLES:
 SERVER_PORT ?= :8000
-DB_USER ?= mohammad
-DB_PASSWORD ?= 173946285
+DB_USER ?= storeManagementAPI
+DB_PASSWORD ?= 11111111
 DB_HOST ?= localhost
 DB_PORT ?= 3306
-DB_NAME ?= mainapi
+DB_NAME ?= storeManagement
 DB_ENGINE ?= SQL
 SECRET_KEY ?= super secret key
 PAGE_SIZE ?= 20
