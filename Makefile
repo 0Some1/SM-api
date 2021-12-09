@@ -4,7 +4,7 @@ SHELL := /bin/bash
 .EXPORT_ALL_VARIABLES:
 SERVER_PORT ?= :8000
 DB_USER ?= storeManagementAPI
-DB_PASSWORD ?= 11111111
+DB_PASSWORD ?= 123456789aA@
 DB_HOST ?= localhost
 DB_PORT ?= 3306
 DB_NAME ?= storeManagement

@@ -60,6 +60,7 @@ func migration(db *gorm.DB) error {
 		&models.Product{},
 		&models.Report{},
 		&models.User{},
+		&models.Policy{},
 	}
 	return db.AutoMigrate(schema...)
 }
