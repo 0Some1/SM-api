@@ -9,5 +9,5 @@ type Necessity struct {
 	Supplier    string
 	ProductID   uint
 	Product     *Product
-	StoreID     uint
+	StoreID     uint `gorm:"not null"`
 }

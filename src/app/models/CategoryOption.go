@@ -7,6 +7,6 @@ type CategoryOption struct {
 	Title                string `gorm:"not null"`
 	Required             bool   `gorm:"default:false;"`
 	Description          string
-	CategoryID           uint
+	CategoryID           uint `gorm:"not null"`
 	CategoryOptionValues []*CategoryOptionValue
 }

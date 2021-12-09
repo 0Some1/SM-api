@@ -5,9 +5,8 @@ import "gorm.io/gorm"
 type Store struct {
 	gorm.Model
 	Name         string `gorm:"not null"`
-	PhoneNumber  string `gorm:"not null"`
+	StorePhone   string `gorm:"not null;unique"`
 	Address      string `gorm:"not null"`
-	ManagerName  string `gorm:"not null"`
 	ActivityType string `gorm:"not null"`
 	Necessities  []*Necessity
 	Payments     []*Payment
@@ -16,4 +15,5 @@ type Store struct {
 	Cheques      []*Cheque
 	Orders       []*Order
 	Categories   []*Category
+	Policies     []*Policy
 }

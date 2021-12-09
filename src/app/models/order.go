@@ -13,8 +13,8 @@ type Order struct {
 	TotalPrice          int64     `gorm:"not null"`
 	Pledge              int64     `gorm:"not null"`
 	CustomerPhoneNumber string    `gorm:"not null"`
+	StoreID             uint      `gorm:"not null"`
 	Description         string
-	StoreID             uint
 	OrderItems          []*OrderItem
 	ProductID           uint
 	Product             Product

@@ -13,7 +13,7 @@ SECRET_KEY ?= super secret key
 PAGE_SIZE ?= 20
 
 build:
-	cd src; go build -o main.exe main-api-store-management
+	cd src && go build -o main.exe main-api-store-management
 	./src/main.exe
 
 

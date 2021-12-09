@@ -8,7 +8,7 @@ type OrderItem struct {
 	UnitPrice   int64  `gorm:"not null"`
 	Discount    int64  `gorm:"not null"`
 	Description string `gorm:"not null"`
-	OrderID     uint
-	ProductID   uint
+	OrderID     uint   `gorm:"not null"`
+	ProductID   uint   `gorm:"not null"`
 	Product     *Product
 }
