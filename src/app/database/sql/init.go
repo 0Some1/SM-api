@@ -1,4 +1,4 @@
-package sqldb
+package db
 
 import (
 	"gorm.io/gorm"
@@ -9,6 +9,3 @@ type Database struct {
 	lib.StoreManagement
 	DB *gorm.DB
 }
-
-
-
