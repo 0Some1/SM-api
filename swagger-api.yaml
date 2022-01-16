@@ -1,0 +1,1795 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: store management
+  description: sotre management API
+servers:
+  - url: d
+paths:
+  /signup:
+    post:
+      tags:
+        - Authenticaiton
+      summary: sign up  user in store management
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/User"
+                - type: object
+                  properties:
+                    "password":
+                      type: string
+                      example: "123456789aA@#$"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "ID":
+                        type: string
+                        example: "1"
+                  - $ref: "#/components/schemas/User"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /login:
+    post:
+      tags:
+        - Authenticaiton
+      summary: log in  user in store management
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                "username":
+                  type: string
+                  example: "dehghanpur10"
+                "password":
+                  type: string
+                  example: "123456789@aA"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "access_token":
+                        type: string
+                        example: "lkadjvkljads;vnajlsnvljnaslgvlkasnvjlnadslvkldasjklvndsklvlkjasvjdakslnvasnvoj;ads;vhfkjdhjkfjfjfjvjnvkjasf;jv"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /store:
+    post:
+      tags:
+        - Store
+      summary: create new store
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Store"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "ID":
+                        type: string
+                        example: "1"
+                  - $ref: "#/components/schemas/Store"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - Store
+      summary: get all store for user
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - type: object
+                      properties:
+                        "ID":
+                          type: string
+                          example: "1"
+                    - $ref: "#/components/schemas/Store"
+                    - type: object
+                      properties:
+                        "role":
+                          type: string
+                          example: "Owner"
+                        "manager_name":
+                          type: string
+                          example: "ahmadi"
+                        "total_product":
+                          type: number
+                          example: 56
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /store/{storeId}/:
+    get:
+      tags:
+        - Store
+      summary: get sotre info
+      parameters:
+        - in: path
+          name: storeId
+          description: sotre Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "ID":
+                        type: string
+                        example: "1"
+                  - $ref: "#/components/schemas/Store"
+                  - type: object
+                    properties:
+                      "role":
+                        type: string
+                        example: "Owner"
+                      "manager_name":
+                        type: string
+                        example: "ahmadi"
+                      "total_product":
+                        type: number
+                        example: 56
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - Store
+      summary: delete sotre info
+      parameters:
+        - in: path
+          name: storeId
+          description: sotre Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        204:
+          description: "No content"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - Store
+      summary: update sotre info
+      parameters:
+        - in: path
+          name: storeId
+          description: sotre Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Store"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "ID":
+                        type: string
+                        example: "1"
+                  - $ref: "#/components/schemas/Store"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /store/{storeId}/policy:
+    post:
+      tags:
+        - Policy
+      summary: create new Policy
+      parameters:
+        - in: path
+          name: storeId
+          description: store Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                "role":
+                  type: string
+                  example: "Admin"
+                "user_info":
+                  type: string
+                  example: "1"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "ID":
+                        type: string
+                        example: "1"
+                  - $ref: "#/components/schemas/Policy"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - Policy
+      summary: get all Policy for store
+      parameters:
+        - in: path
+          name: storeId
+          description: store Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - type: object
+                      properties:
+                        "ID":
+                          type: string
+                          example: "1"
+                    - $ref: "#/components/schemas/Policy"
+
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /policy/{policyId}:
+    delete:
+      tags:
+        - Policy
+      summary: delete policy info
+      parameters:
+        - in: path
+          name: policyId
+          description: policy Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        204:
+          description: "No content"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /store/{storeId}//payment:
+    post:
+      tags:
+        - Payment
+      summary: create new payment
+      parameters:
+        - in: path
+          name: storeId
+          description: store Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Payment"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "ID":
+                        type: string
+                        example: "1"
+                  - $ref: "#/components/schemas/Payment"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - Payment
+      summary: get all payments for store
+      parameters:
+        - in: path
+          name: storeId
+          description: store Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - in: query
+          name: page
+          description: page number
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - type: object
+                      properties:
+                        "ID":
+                          type: string
+                          example: "1"
+                    - $ref: "#/components/schemas/Payment"
+
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /payment/{paymentId}:
+    delete:
+      tags:
+        - Payment
+      summary: delete payment info
+      parameters:
+        - in: path
+          name: paymentId
+          description: payment Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        204:
+          description: "No content"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /store/{storeId}/cheque:
+    post:
+      tags:
+        - Cheque
+      summary: create new cheque
+      parameters:
+        - in: path
+          name: storeId
+          description: store Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cheque"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "ID":
+                        type: string
+                        example: "1"
+                  - $ref: "#/components/schemas/Cheque"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - Cheque
+      summary: get all cheques for store
+      parameters:
+        - in: path
+          name: storeId
+          description: store Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - in: query
+          name: page
+          description: page number
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - type: object
+                      properties:
+                        "ID":
+                          type: string
+                          example: "1"
+                    - $ref: "#/components/schemas/Cheque"
+
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /cheque/{chequeId}:
+    delete:
+      tags:
+        - Cheque
+      summary: delete cheque info
+      parameters:
+        - in: path
+          name: chequeId
+          description: cheque Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        204:
+          description: "No content"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /store/{storeId}/bill:
+    post:
+      tags:
+        - Bill
+      summary: create new cheque
+      parameters:
+        - in: path
+          name: storeId
+          description: store Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Bill"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "ID":
+                        type: string
+                        example: "1"
+                  - $ref: "#/components/schemas/Bill"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - Bill
+      summary: get all Bills for store
+      parameters:
+        - in: path
+          name: storeId
+          description: store Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - in: query
+          name: page
+          description: page number
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - type: object
+                      properties:
+                        "ID":
+                          type: string
+                          example: "1"
+                    - $ref: "#/components/schemas/Bill"
+
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /bill/{billId}:
+    delete:
+      tags:
+        - Bill
+      summary: delete Bill info
+      parameters:
+        - in: path
+          name: billId
+          description: bill Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        204:
+          description: "No content"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /store/{storeId}/category:
+    post:
+      tags:
+        - Category
+      summary: create new category
+      parameters:
+        - in: path
+          name: storeId
+          description: store Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Category"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "ID":
+                        type: string
+                        example: "1"
+                  - $ref: "#/components/schemas/Category"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - Category
+      summary: get all categories for store
+      parameters:
+        - in: path
+          name: storeId
+          description: store Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - in: query
+          name: parentId
+          description: store Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    "ID":
+                      type: string
+                      example: "1"
+                    "name":
+                      type: string
+                      example: "category1"
+                    "IsLeaf":
+                      type: boolean
+                      example: false
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /category/{categoryId}:
+    delete:
+      tags:
+        - Category
+      summary: delete Category info
+      parameters:
+        - in: path
+          name: categoryId
+          description: category Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        204:
+          description: "No content"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /category/{categoryId}/category_option:
+    post:
+      tags:
+        - CategoryOption
+      summary: create new category option
+      parameters:
+        - in: path
+          name: categoryId
+          description: category Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CategoryOption"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "ID":
+                        type: string
+                        example: "1"
+                  - $ref: "#/components/schemas/CategoryOption"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - CategoryOption
+      summary: get all category options for store
+      parameters:
+        - in: path
+          name: categoryId
+          description: category Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - type: object
+                      properties:
+                        "ID":
+                          type: string
+                          example: "1"
+                    - $ref: "#/components/schemas/CategoryOption"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /category_option/{categoryOptionId}:
+    delete:
+      tags:
+        - CategoryOption
+      summary: delete Category info
+      parameters:
+        - in: path
+          name: categoryOptionId
+          description: categoryOption Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        204:
+          description: "No content"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - CategoryOption
+      summary: update category option
+      parameters:
+        - in: path
+          name: categoryOptionId
+          description: categoryOption Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CategoryOption"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "ID":
+                        type: string
+                        example: "1"
+                  - $ref: "#/components/schemas/CategoryOption"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /category_option/{categoryOptionId}/category_option_value:
+    post:
+      tags:
+        - CategoryOptionValue
+      summary: create new category option value
+      parameters:
+        - in: path
+          name: categoryOptionId
+          description: category option Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CategoryOptionValue"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "ID":
+                        type: string
+                        example: "1"
+                  - $ref: "#/components/schemas/CategoryOptionValue"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - CategoryOptionValue
+      summary: get all category options value for store
+      parameters:
+        - in: path
+          name: categoryOptionId
+          description: category option value Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - type: object
+                      properties:
+                        "ID":
+                          type: string
+                          example: "1"
+                    - $ref: "#/components/schemas/CategoryOptionValue"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /category_option_value/{categoryOptionValueId}:
+    delete:
+      tags:
+        - CategoryOptionValue
+      summary: delete Category option value info
+      parameters:
+        - in: path
+          name: categoryOptionValueId
+          description: category Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        204:
+          description: "No content"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /category/{categoryId}/product:
+    post:
+      tags:
+        - Product
+      summary: create new Product
+      parameters:
+        - in: path
+          name: categoryId
+          description: category Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/Product"
+                - type: object
+                  properties:
+                    "category_option_value":
+                      type: array
+                      items:
+                        type: string
+                      example: ["1", "2", "3"]
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "ID":
+                        type: string
+                        example: "1"
+                  - $ref: "#/components/schemas/Product"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - Product
+      summary: get all product for store
+      parameters:
+        - in: path
+          name: categoryId
+          description: category Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - type: object
+                      properties:
+                        "ID":
+                          type: string
+                          example: "1"
+                    - $ref: "#/components/schemas/CategoryOption"
+                    - type: object
+                      properties:
+                        "details":
+                          type: object
+                          example: {"color":"red", "size":"small"}
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /product/{productId}:
+    delete:
+      tags:
+        - Product
+      summary: delete Category info
+      parameters:
+        - in: path
+          name: productId
+          description: product Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        204:
+          description: "No content"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - Product
+      summary: update product
+      parameters:
+        - in: path
+          name: productId
+          description: product Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/Product"
+                - type: object
+                  properties:
+                    "add_category_option_value":
+                      type: array
+                      items:
+                        type: string
+                      example: ["1", "2", "3"]
+                    "remove_category_option_value":
+                      type: array
+                      items:
+                        type: string
+                      example: ["1", "2", "3"]
+      responses:
+        204:
+          description: "No content"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /store/{storeId}/order:
+    post:
+      tags:
+        - Order
+      summary: create new order
+      parameters:
+        - in: path
+          name: storeId
+          description: store Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "ID":
+                        type: string
+                        example: "1"
+                  - $ref: "#/components/schemas/Order"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - Order
+      summary: get all order for store
+      parameters:
+        - in: path
+          name: storeId
+          description: store Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "ID":
+                        type: string
+                        example: "1"
+                      "total_price":
+                        type: number
+                        example: 1400000
+                  - $ref: "#/components/schemas/Order"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /order/{orderId}:
+    delete:
+      tags:
+        - Order
+      summary: delete Category info
+      parameters:
+        - in: path
+          name: orderId
+          description: order Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        204:
+          description: "No content"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - Order
+      summary: update order
+      parameters:
+        - in: path
+          name: orderId
+          description: order Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        204:
+          description: "No content"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /order/{orderId}/order_item:
+    post:
+      tags:
+        - OrderItem
+      summary: create new order Item
+      parameters:
+        - in: path
+          name: orderId
+          description: order Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderItem"
+
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "ID":
+                        type: string
+                        example: "1"
+                  - $ref: "#/components/schemas/OrderItem"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - OrderItem
+      summary: get all order item for order
+      parameters:
+        - in: path
+          name: orderId
+          description: order Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - type: object
+                      properties:
+                        "ID":
+                          type: string
+                          example: "1"
+                    - $ref: "#/components/schemas/OrderItem"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /order_item/{orderItemId}:
+    delete:
+      tags:
+        - OrderItem
+      summary: delete oreder item info
+      parameters:
+        - in: path
+          name: orderItemId
+          description: order Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        204:
+          description: "No content"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - OrderItem
+      summary: update order item
+      parameters:
+        - in: path
+          name: orderItemId
+          description: order item Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderItem"
+      responses:
+        204:
+          description: "No content"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /store/{storeId}/necessity:
+    post:
+      tags:
+        - Necessity
+      summary: create new Necessity
+      parameters:
+        - in: path
+          name: storeId
+          description: store Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - in: query
+          name: productId
+          description: store Id
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Necessity"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "ID":
+                        type: string
+                        example: "1"
+                  - $ref: "#/components/schemas/Necessity"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - Necessity
+      summary: get all necessity for store
+      parameters:
+        - in: path
+          name: storeId
+          description: store Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - type: object
+                      properties:
+                        "ID":
+                          type: string
+                          example: "1"
+                    - $ref: "#/components/schemas/Necessity"
+
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /Necessity/{necessityId}:
+    delete:
+      tags:
+        - Necessity
+      summary: delete necessity info
+      parameters:
+        - in: path
+          name: necessityId
+          description: policy Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        204:
+          description: "No content"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /product/{productId}/report:
+    post:
+      tags:
+        - Report
+      summary: create new reprot
+      parameters:
+        - in: path
+          name: productId
+          description: report Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Report"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      "ID":
+                        type: string
+                        example: "1"
+                  - $ref: "#/components/schemas/Report"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - Report
+      summary: get all reports for store
+      parameters:
+        - in: path
+          name: productId
+          description: product Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - type: object
+                      properties:
+                        "ID":
+                          type: string
+                          example: "1"
+                    - $ref: "#/components/schemas/Report"
+
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /report/{reportId}:
+    delete:
+      tags:
+        - Report
+      summary: delete report info
+      parameters:
+        - in: path
+          name: reportId
+          description: report Id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        204:
+          description: "No content"
+        default:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+security:
+  - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Error:
+      type: object
+      required:
+        - title
+      properties:
+        "@type":
+          type: string
+          example: Error
+        title:
+          type: string
+        description:
+          type: string
+    User:
+      type: object
+      properties:
+        "name":
+          type: string
+          example: "mohammad"
+        "username":
+          type: string
+          example: "dehghanpur"
+        "phone_number":
+          type: string
+          example: "09394800729"
+        "email":
+          type: string
+          example: "m.dehghanpour10@gmail.com"
+    Store:
+      type: object
+      properties:
+        "name":
+          type: string
+          example: "Afra"
+        "store_phone":
+          type: string
+          example: "02166215895"
+        "address":
+          type: string
+          example: "tehran-valiaser"
+        "activity_type":
+          type: string
+          example: "wood"
+    Policy:
+      type: object
+      properties:
+        "role":
+          type: string
+          example: "Admin"
+        "user":
+          allOf:
+            - type: object
+              properties:
+                "ID":
+                  type: string
+                  example: "1"
+            - $ref: "#/components/schemas/User"
+    Payment:
+      type: object
+      properties:
+        "person":
+          type: string
+          example: "mohammad"
+        "amount":
+          type: number
+          example: 3500000
+        "description":
+          type: string
+          example: "this is a payment"
+    Cheque:
+      type: object
+      properties:
+        "date":
+          type: string
+          format: time
+          example: "1400/02/05"
+        "bank_name":
+          type: string
+          example: "melli"
+        "payee":
+          type: string
+          example: "mohammad"
+        "amount":
+          type: string
+          example: 25000000
+        "description":
+          type: string
+          example: "this is a cheque"
+    Bill:
+      type: object
+      properties:
+        "title":
+          type: string
+          example: "tools"
+        "seller":
+          type: string
+          example: "mohammad"
+        "quantity":
+          type: number
+          example: 5
+        "unit_price":
+          type: number
+          example: 240000
+        "description":
+          type: string
+          example: "this is a cheque"
+    Category:
+      type: object
+      properties:
+        "parent_id":
+          type: string
+          example: "1"
+        "name":
+          type: string
+          example: "category1"
+    CategoryOption:
+      type: object
+      properties:
+        "title":
+          type: string
+          example: "color"
+        "required":
+          type: boolean
+          example: true
+        "description":
+          type: string
+          example: "this is a description"
+    CategoryOptionValue:
+      type: object
+      properties:
+        "value":
+          type: string
+          example: "red"
+    Product:
+      type: object
+      properties:
+        "name":
+          type: string
+          example: "product1"
+        "price":
+          type: number
+          example: 14000
+        "quantity":
+          type: number
+          example: 5
+        "min_quantity":
+          type: number
+          example: 4
+    Order:
+      type: object
+      properties:
+        "customer":
+          type: string
+          example: "moahmamd"
+        "buy_date":
+          type: string
+          example: "1400/5/6"
+        "delivery_date":
+          type: string
+          example: "1400/5/8"
+        "pledge":
+          type: number
+          example: 2410000
+        "customer_phone_number":
+          type: string
+          example: 09394800729
+        "description":
+          type: string
+          example: "this is a order"
+    OrderItem:
+      type: object
+      properties:
+        "quantity":
+          type: number
+          example: 5
+        "unit_price":
+          type: number
+          example: 140000
+        "discount":
+          type: number
+          example: 14000
+        "description":
+          type: string
+          example: "this is a order item"
+    Necessity:
+      type: object
+      properties:
+        "title":
+          type: string
+          example: "necessity1"
+        "description":
+          type: string
+          example: "this is a necessity"
+        "supplier":
+          type: string
+          example: "mohammad"
+    Report:
+      type: object
+      properties:
+        "is_entry":
+          type: boolean
+          example: true
+        "exceutor":
+          type: string
+          example: "mohammad"
+        "description":
+          type: string
+          example: "this is a reporst"
+
+
+
+
+
+
+
+
