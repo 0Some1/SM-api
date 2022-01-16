@@ -9,10 +9,11 @@ require (
 	github.com/gorilla/mux v1.8.0
 	github.com/pkg/errors v0.8.1
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
-	gorm.io/driver/mysql v1.2.0
 	gorm.io/driver/postgres v1.2.3
 	gorm.io/gorm v1.22.3
-	github.com/go-sql-driver/mysql v1.6.0 // indirect
+)
+
+require (
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.10.1 // indirect
 	github.com/jackc/pgio v1.0.0 // indirect
