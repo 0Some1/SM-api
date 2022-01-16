@@ -10,5 +10,4 @@ type Bill struct {
 	UnitPrice   string `gorm:"not null"`
 	Description string `gorm:"not null"`
 	StoreID     uint
-
 }
