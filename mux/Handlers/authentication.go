@@ -137,7 +137,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		if strings.Contains(strings.ToLower(err.Error()), "duplicate") {
 			fmt.Println(" Duplicate - SignUpHandler error: ", err)
-			muxlib.HttpError400(w, "username or email should be unique")
+			muxlib.HttpError400(w, "username or email or phone_number should be unique")
 			return
 		}
 		fmt.Println(" CreateNewUser- SignUpHandler - ", err)

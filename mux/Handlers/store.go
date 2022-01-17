@@ -53,7 +53,7 @@ func CreateStore(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		if strings.Contains(strings.ToLower(err.Error()), "duplicate") {
 			fmt.Println(" Duplicate - CreateStoreHandler error: ", err)
-			muxlib.HttpError400(w, "username or email should be unique")
+			muxlib.HttpError400(w, "store phone should be unique")
 			return
 		}
 		fmt.Println(" CreateStoreHandler- CreateStoreHandler - ", err)
