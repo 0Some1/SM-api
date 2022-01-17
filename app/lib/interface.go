@@ -8,6 +8,6 @@ type StoreManagement interface {
 	GetUserByUsername(username string) (*models.User, error)
 	CreateStore(store *models.Store, user *models.User) error
 	GetAllStores(user *models.User) ([]*models.Store, error)
-	CreatePolicy(store *models.Store, user *models.User) error
+	CreatePolicy(store *models.Store, user *models.User, role string) error
 	DeleteStoreByID(storeID string) error
 }

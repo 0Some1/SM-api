@@ -32,7 +32,7 @@ func (db *Database) CreateStore(store *models.Store, user *models.User) error {
 	if err != nil {
 		return err
 	}
-	err = db.CreatePolicy(store, user)
+	err = db.CreatePolicy(store, user, "owner")
 	return err
 }
 
@@ -42,8 +42,9 @@ func (db *Database) GetAllStores(user *models.User) ([]*models.Store, error) {
 	return stores, err
 }
 
-func (db *Database) CreatePolicy(store *models.Store, user *models.User) error {
+func (db *Database) CreatePolicy(store *models.Store, user *models.User, role string) error {
 	policy := new(models.Policy)
+	policy.Role = role
 	policy.StoreID = store.ID
 	policy.UserID = user.ID
 	return db.DB.Create(policy).Error
